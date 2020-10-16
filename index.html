@@ -1,0 +1,82 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epic Seven Gear Check</title>
+    <script type="text/javascript" src="app.js" defer="defer"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+        }
+        label {
+            margin-top: 20px;
+            margin-bottom: 5px;
+        }
+        .container {
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+        #main-form {
+            display: flex;
+            flex-direction: column;
+        }
+        #results {margin-left: 20px;}
+        .space {
+            margin-top: 20px;
+        }
+        .space-2 {margin-top: 5px;}
+        .flex {
+            display: flex;
+        }
+        .column {
+            flex-direction: column;
+        }
+
+        .red {
+            color:red;
+        }
+        .button {
+            margin:5px;
+            padding: 5px;
+            border: 1px solid black;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: black;
+            color:white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id='error' class="red"></div>
+        <div id="main-form">
+            <label for="gearLevel">Gear Level</label>
+            <select name="gearLevel" id="gearLevel">
+                <option value="85" selected>85</option>
+                <option value="88">88</option>
+            </select>
+            <label for="rightSideGear">Necklace/Ring/Boot(None for Left Side Gear)</label>
+            <select name="rightSideGear" id="rightSideGear">
+                <option value="0" selected>None</option>
+                <option value="1">Necklace</option>
+                <option value="2">Ring</option>
+                <option value="3">Boot</option>
+            </select>
+            <label for="mainStat">Main Stat</label>
+            <select name="mainStat" id="mainStat">
+                <option value="0" selected>None</option>
+            </select>
+            <div id="sub-stats" class="flex column space">Sub Stats</div>
+            <!-- <input type="submit" value="Submit"> -->
+            <div class="button" onclick="handleSubmit()">Submit</div>
+        </div>
+    </div>
+    <div id="results">
+        <div>Results:</div>
+    </div>
+</body>
+</html>
