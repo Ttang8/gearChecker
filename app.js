@@ -228,14 +228,14 @@ function checkSubStats(role) {
     }
 
     nameEl.innerHTML = `Role: ${role.name} `
-    if(hpc < 2 || (hpc+mpc+lpc < 3)) {
-        let di = document.createElement('div')
-        di.innerHTML = 'not good'
-        el.appendChild(nameEl)
-        el.appendChild(di)
-        results.appendChild(el)
-        return
-    }
+    // if(hpc < 2 || (hpc+mpc+lpc < 3)) {
+    //     let di = document.createElement('div')
+    //     di.innerHTML = 'not good'
+    //     el.appendChild(nameEl)
+    //     el.appendChild(di)
+    //     results.appendChild(el)
+    //     return
+    // }
 
     if(hpc > 0) {
         nameEl.innerHTML = nameEl.innerHTML.concat(`${hpc} High Priority `)
