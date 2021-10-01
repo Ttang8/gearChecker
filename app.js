@@ -25,17 +25,32 @@ const FHEALTH = 11
 
 let error = document.getElementById('error')
 let results = document.getElementById('results')
+
+let attackPercent = document.querySelector("input[name='attack_percent']")
+let defensePercent = document.querySelector("input[name='defense_percent']")
+let healthPercent = document.querySelector("input[name='health_percent']")
+let attackFlat = document.querySelector("input[name='attack_flat']")
+let defenseFlat = document.querySelector("input[name='defense_flat']")
+let healthFlat = document.querySelector("input[name='health_flat']")
+let critPercent = document.querySelector("input[name='crit_chance']")
+let critDamage = document.querySelector("input[name='crit_damage']")
+let speed = document.querySelector("input[name='speed']")
+let effectiveness = document.querySelector("input[name='effectiveness']")
+let effResis = document.querySelector("input[name='eff_resist']")
+
 let def = document.createElement('div')
+def.classList.add('center')
+def.classList.add('font-45px')
 def.innerHTML = 'Results:'
 
 let subStats = {
-    1:'Attack',
+    1:'Attack%',
     2:'Crit Damage',
     3:'Crit Rate',
-    4:'Defense',
+    4:'Defense%',
     5:'Effectiveness',
     6:'Effect Resistance',
-    7:'Health',
+    7:'Health%',
     8:'Speed',
     9:'Flat Attack',
     10:'Flat Defense',
@@ -109,40 +124,78 @@ let openerSub = {
 
 let roles = [dps,tankHealer,debuff,bruiser,opener]
 
-let subS = document.getElementById("sub-stats")
-for(let i=1;i<=4;i++) {
-    let sel = document.createElement("select")
-    sel.name = `substat-${i}`
-    sel.id = `substat-${i}`
-    sel.classList.add('space-2')
-    let na = document.createElement("option")
-    na.value = 0
-    na.innerHTML = 'none'
-    sel.appendChild(na)
-        for (let key in subStats) {
-            let opt = document.createElement("option")
-            opt.value = key
-            opt.innerHTML = subStats[key]
-            sel.appendChild(opt)
-        }
-    subS.appendChild(sel)
-}
+// let subS = document.getElementById("sub-stats")
+// for(let i=1;i<=4;i++) {
+//     let sel = document.createElement("select")
+//     sel.name = `substat-${i}`
+//     sel.id = `substat-${i}`
+//     sel.classList.add('space-2')
+//     let na = document.createElement("option")
+//     na.value = 0
+//     na.innerHTML = 'none'
+//     sel.appendChild(na)
+//         for (let key in subStats) {
+//             let opt = document.createElement("option")
+//             opt.value = key
+//             opt.innerHTML = subStats[key]
+//             sel.appendChild(opt)
+//         }
+//     subS.appendChild(sel)
+// }
 
-let mainS = document.getElementById('mainStat')
-for (let k in subStats) {
-    let option = document.createElement("option")
-    option.value = k
-    option.innerHTML = subStats[k]
-    mainS.appendChild(option)
-}
+// let mainS = document.getElementById('mainStat')
+// for (let k in subStats) {
+//     let option = document.createElement("option")
+//     option.value = k
+//     option.innerHTML = subStats[k]
+//     mainS.appendChild(option)
+// }
 
 function handleSubmit() {
     clearError()
     clearResults()
-    let result = checkGear()
-    result.forEach(role => {
-        checkSubStats(role)
-    })
+
+    let gearScore = 0
+
+    let currentAttackPercent = parseInt(attackPercent.value);
+    let currentDefensePercent = parseInt(defensePercent.value);
+    let currentHealthPercent = parseInt(healthPercent.value);
+    let currentAttackFlat = parseInt(attackFlat.value);
+    let currentDefenseFlat = parseInt(defenseFlat.value);
+    let currentHealthFlat = parseInt(healthFlat.value);
+    let currentCritPercent = parseInt(critPercent.value);
+    let currentCritDamage = parseInt(critDamage.value);
+    let currentSpeed = parseInt(speed.value);
+    let currentEffectiveness = parseInt(effectiveness.value);
+    let currentEffResist = parseInt(effResis.value);
+
+    gearScore += currentAttackPercent ? currentAttackPercent : 0
+    gearScore += currentDefensePercent ? currentDefensePercent : 0
+    gearScore += currentHealthPercent ? currentHealthPercent : 0
+    gearScore += currentEffectiveness ? currentEffectiveness : 0
+    gearScore += currentEffResist ? currentEffResist : 0
+    gearScore += currentSpeed ? (currentSpeed*(8/4)) : 0
+    gearScore += currentCritPercent ? (currentCritPercent*(8/5)) : 0
+    gearScore += currentCritDamage ? (currentCritDamage*(8/7)) : 0
+    gearScore += currentAttackFlat ? (currentAttackFlat * (3.46 / 39)) : 0
+    gearScore += currentDefenseFlat ? (currentDefenseFlat * (4.99 / 31)) : 0
+    gearScore += currentHealthFlat ? (currentHealthFlat * (3.09 / 174)) : 0
+    let el = document.createElement('div')
+    el.classList.add('center')
+    el.classList.add('font-45px')
+    el.innerHTML = gearScore
+    results.appendChild(el)
+    // let result = checkGear()
+    // result.forEach(role => {
+    //     checkSubStats(role)
+    // })
+}
+
+function checkActiveStat(substatValue) {
+    if (substatValue > 0) {
+        return true
+    }
+    return false
 }
 
 function checkGear() {
@@ -257,6 +310,21 @@ function checkSubStats(role) {
 
 function clearError() {
     error.innerHTML = ''
+}
+
+function handleReset() {
+    attackPercent.value = ''
+    defensePercent.value = ''
+    healthPercent.value = ''
+    attackFlat.value = ''
+    defenseFlat.value = ''
+    healthFlat.value = ''
+    critPercent.value = ''
+    critDamage.value = ''
+    speed.value = ''
+    effectiveness.value = ''
+    effResis.value = ''
+    clearResults()
 }
 
 function writeError(string) {

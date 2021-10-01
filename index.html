@@ -8,27 +8,50 @@
         body {
             display: flex;
             justify-content: center;
+            color: white;
+            /* background-color: gray; */
+            background-image: url("background.png");
+            background-repeat: no-repeat;
+            background-size: cover;
+            font-size: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
         }
         label {
             margin-top: 20px;
             margin-bottom: 5px;
         }
+        input {
+            border-radius: 5px;
+            margin-left: 10px;
+            padding-left: 10px;
+            height: 40px;
+            font-size: 20px;
+        }
         .container {
-            max-width: 500px;
+            /* max-width: 500px; */
+            /* width: 100%; */
             display: flex;
             flex-direction: column;
+            background-color: rgba(0, 0, 0, 0.75);
+            padding: 15px;
+            border-radius: 5px;
         }
         #main-form {
             display: flex;
             flex-direction: column;
         }
-        #results {margin-left: 20px;}
+        /* #results {margin-left: 20px;} */
         .space {
             margin-top: 20px;
         }
         .space-2 {margin-top: 5px;}
         .flex {
             display: flex;
+        }
+        .center {
+            align-items: center;
+            text-align: center;
         }
         .column {
             flex-direction: column;
@@ -38,22 +61,53 @@
             color:red;
         }
         .button {
-            margin:5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left:10px;
+            margin-top: 20px;
             padding: 5px;
-            border: 1px solid black;
+            /* border: 1px solid black; */
             border-radius: 4px;
             cursor: pointer;
+            width: 100%;
+            background-color: green;
+            font-size: 30px;
+            color: black;
+        }
+        .check {
+
+        }
+        .reset {
+            background-color: red;
         }
         .button:hover {
-            background-color: black;
+            background-color: rgba(0, 255, 0, 0.3);
+            /* opacity: 0.5; */
             color:white;
+        }
+        .button.reset:hover {
+            /* background-color: black; */
+            /* color:white; */
+            background-color: rgba(255, 0, 0, 0.3);
+        }
+        .stat_container {
+
+        }
+        .button_container {
+            width: 100%;
+        }
+        #results {
+            margin: 15px;
+        }
+        .font-45px {
+            font-size: 45px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div id='error' class="red"></div>
-        <div id="main-form">
+        <!-- <div id="main-form">
             <label for="gearLevel">Gear Level</label>
             <select name="gearLevel" id="gearLevel">
                 <option value="85" selected>85</option>
@@ -71,12 +125,77 @@
                 <option value="0" selected>None</option>
             </select>
             <div id="sub-stats" class="flex column space">Sub Stats</div>
-            <!-- <input type="submit" value="Submit"> -->
-            <div class="button" onclick="handleSubmit()">Submit</div>
+            <input type="submit" value="Submit">
+            <div class="button" onclick="handleSubmit()">Check</div>
+        </div> -->
+        <div class="center font-45px">Gear Score Calculator</div>
+        <div class='stat_container flex column'>
+            <div class="flex">
+                <div class="flex column center">
+                    <label for='attack_percent'>Attack%</label>
+                    <input name="attack_percent" placeholder="0%" type="text">
+                </div>
+                <div class="flex column center">
+                    <label for='defense_percent'>Defense%</label>
+                    <input name="defense_percent" placeholder="0%" type="text">
+                </div>
+                <div class="flex column center">
+                    <label for='health_percent'>Health%</label>
+                    <input name="health_percent" placeholder="0%" type="text">
+                </div>
+            </div>
+            
+            <div class="flex">
+                <div class="flex column center">
+                    <label for='attack_flat'>Flat Attack</label>
+                    <input name="attack_flat" placeholder="0" type="text">
+                </div>
+                <div class="flex column center">
+                    <label for='defense_flat'>Flat Defense</label>
+                    <input name="defense_flat" placeholder="0" type="text">
+                </div>
+                <div class="flex column center">
+                    <label for='health_flat'>Flat Health</label>
+                    <input name="health_flat" placeholder="0" type="text">
+                </div>
+            </div>
+
+            <div class="flex">
+                <div class="flex column center">
+                    <label for='crit_chance'>Crit Chance</label>
+                    <input name="crit_chance" placeholder="0%" type="text">
+                </div>
+                <div class="flex column center">
+                    <label for='crit_damage'>Crit Damage</label>
+                    <input name="crit_damage" placeholder="0%" type="text">
+                </div>
+                <div class="flex column center">
+                    <label for='speed'>Speed</label>
+                    <input name="speed" placeholder="0" type="text">
+                </div>
+            </div>
+
+            <div class="flex">
+                <div class="flex column center">
+                    <label for='effectiveness'>Effectiveness</label>
+                    <input name="effectiveness" placeholder="0%" type="text">
+                </div>
+                <div class="flex column center">
+                    <label for='eff_resist'>Eff.Resist</label>
+                    <input name="eff_resist" placeholder="0%" type="text">
+                </div>
+                <div class="flex button_container">
+                    <div class="button" onclick="handleSubmit()">Check</div>
+                    <div class="button reset" onclick="handleReset()">Reset</div>
+                </div>
+            </div>
+
         </div>
+        <div id="results">
+            <div class="center font-45px">Results:</div>
+        </div>
+        <div id='error' class="red"></div>
     </div>
-    <div id="results">
-        <div>Results:</div>
-    </div>
+    
 </body>
 </html>
